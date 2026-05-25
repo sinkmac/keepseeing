@@ -142,7 +142,6 @@
           class="input-field"
           bind:value={subject}
           type="text"
-          placeholder="11:11, a robin, the smell of rain, the number 3..."
           maxlength="120"
           autocomplete="off"
           spellcheck="false"
