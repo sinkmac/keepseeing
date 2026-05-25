@@ -111,7 +111,7 @@
       clearTimeout(copyResetHandle);
     }
 
-    const text = `What keeps finding me: ${currentSubject}\n\n${pattern}\n\n"${portrait}"\n\nkeepseeing.com`;
+    const text = `What keeps finding me: ${currentSubject}\n\n${pattern}\n\n"${portrait}"\n\nkeepseeing.co.uk`;
     await navigator.clipboard.writeText(text);
     isCopied = true;
     copyResetHandle = window.setTimeout(() => {
@@ -128,8 +128,13 @@
       <div class="hero-eyebrow">a place for recurring things</div>
       <h1 class="hero-title">What keeps<br /><em>finding you?</em></h1>
       <p class="hero-sub">
-        A number. An animal. A song you didn't choose. A face. Type it here and we'll take it
-        seriously.
+        KeepSeeing is a free private recurring-things tracker. Type a number, animal, song, place,
+        or sign that keeps appearing and get a quiet pattern reading. No account. No public profile.
+      </p>
+      <p class="hero-sub">
+        Your prompt is sent to the model provider only to generate the reading. The site does not
+        publish a profile or keep a public list. Save anything important yourself before clearing
+        browser data.
       </p>
 
       <form class="input-wrap" onsubmit={handleSubmit}>
@@ -143,7 +148,7 @@
           spellcheck="false"
           aria-label="What keeps finding you?"
         />
-        <div class="input-hint">free to use · no accounts · no storage</div>
+        <div class="input-hint">free to use · no account · no public profile</div>
         <button class="submit-btn" type="submit" disabled={isLoading}>
           {#if isLoading}
             <span><span class="spinner"></span>reading the pattern...</span>

@@ -16,6 +16,33 @@
   <meta property="og:description" content={siteSeo.ogDescription} />
   <meta property="og:url" content={siteSeo.url} />
   <meta property="og:type" content={siteSeo.ogType} />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "KeepSeeing",
+          "url": "https://keepseeing.co.uk",
+          "description": "KeepSeeing is a free private recurring-things tracker. Type a number, animal, song, place, or sign that keeps appearing and get a quiet pattern reading. No account. No public profile."
+        },
+        {
+          "@type": "WebApplication",
+          "name": "KeepSeeing",
+          "url": "https://keepseeing.co.uk",
+          "description": "KeepSeeing is a free private recurring-things tracker. Type a number, animal, song, place, or sign that keeps appearing and get a quiet pattern reading. No account. No public profile.",
+          "applicationCategory": "LifestyleApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+        },
+        {
+          "@type": "Organization",
+          "name": "AI Scotland Productions",
+          "url": "https://aiscotlandproductions.com"
+        }
+      ]
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
   <link
