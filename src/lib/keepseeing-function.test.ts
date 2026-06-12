@@ -56,8 +56,23 @@ describe('keepseeing netlify function', () => {
     expect(response.statusCode).toBe(200);
     expect(JSON.parse(response.body)).toEqual({
       pattern: 'Across traditions, 11:11 is a threshold number.',
-      portrait: 'It arrives like a watchful hinge in the day.'
+      portrait: 'It arrives like a watchful hinge in the day.',
+      guarded: false
     });
+  });
+
+  it('returns guarded copy without calling anthropic for distress input', async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+
+    const response = await handler({
+      httpMethod: 'POST',
+      body: JSON.stringify({ system: 'system text', user: "the number follows me, I think it's a warning, I can't sleep" })
+    });
+
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(response.statusCode).toBe(200);
+    expect(JSON.parse(response.body)).toEqual(expect.objectContaining({ guarded: true, portrait: '' }));
   });
 });
 

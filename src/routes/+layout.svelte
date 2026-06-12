@@ -10,9 +10,9 @@
     const path = page.url.pathname.replace(/\/$/, '') || '/';
     if (path === '/about') {
       return {
-        title: 'About KeepSeeing — quiet recurring-things tracker',
+        title: 'About KeepSeeing — recurring-things tracker',
         description:
-          'About KeepSeeing: a quiet private tool for naming numbers, animals, songs, places, or signs that keep appearing without claiming certainty or diagnosis.',
+          'About KeepSeeing: a private tool for logging numbers, animals, songs, places, or signs that keep appearing without claiming certainty or diagnosis.',
         url: `${siteSeo.url}/about`
       };
     }
@@ -50,13 +50,13 @@
           "@type": "WebSite",
           "name": "KeepSeeing",
           "url": "https://keepseeing.co.uk",
-          "description": "KeepSeeing is a free private recurring-things tracker. Type a number, animal, song, place, or sign that keeps appearing and get a quiet pattern reading. No account. No public profile."
+          "description": "KeepSeeing is a free, private tracker for recurring things. Log the number, animal, song, or sign that keeps appearing, watch the pattern build, and get a reading grounded in folklore, psychology, and ordinary life. No account. Nothing stored off your device except the reading request."
         },
         {
           "@type": "WebApplication",
           "name": "KeepSeeing",
           "url": "https://keepseeing.co.uk",
-          "description": "KeepSeeing is a free private recurring-things tracker. Type a number, animal, song, place, or sign that keeps appearing and get a quiet pattern reading. No account. No public profile.",
+          "description": "KeepSeeing is a free, private tracker for recurring things. Log the number, animal, song, or sign that keeps appearing, watch the pattern build, and get a reading grounded in folklore, psychology, and ordinary life. No account. Nothing stored off your device except the reading request.",
           "applicationCategory": "LifestyleApplication",
           "operatingSystem": "Web",
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }

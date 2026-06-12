@@ -171,7 +171,8 @@ button {
   animation: fadeUp 0.8s ease 0.8s forwards;
 }
 
-.input-field {
+.input-field,
+.note-field {
   width: 100%;
   background: var(--void-mid);
   border: 1px solid var(--parchment-faint);
@@ -185,16 +186,66 @@ button {
   caret-color: var(--amber);
 }
 
-.input-field::placeholder {
+.input-field::placeholder,
+.note-field::placeholder {
   color: var(--parchment-faint);
   font-style: italic;
 }
 
 .input-field:focus,
-.input-field:focus-visible {
+.input-field:focus-visible,
+.note-field:focus,
+.note-field:focus-visible {
   border-color: var(--amber);
   background: var(--void-light);
 }
+
+.note-field {
+  resize: vertical;
+  margin-top: 12px;
+  min-height: 76px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.recurrence-hint,
+.log-msg,
+.tool-disclaimer,
+.log-link {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--parchment-faint);
+}
+
+.recurrence-hint,
+.log-msg {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.log-msg { color: var(--amber); }
+
+.secondary-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 13px 20px;
+  background: var(--void-mid);
+  border: 1px solid var(--parchment-faint);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--parchment-dim);
+}
+
+.secondary-btn:hover { border-color: var(--amber); color: var(--amber); }
+.log-link { display: inline-block; margin-top: 12px; text-decoration: none; }
+.log-link:hover { color: var(--amber); }
+
+.share-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1.5rem; }
+.tool-disclaimer { margin: 1.5rem 0 0; text-align: center; }
 
 .input-hint {
   font-size: 10px;
@@ -412,6 +463,76 @@ button {
   letter-spacing: 0.03em;
 }
 
+.empty-log,
+.log-group {
+  border: 1px solid var(--parchment-faint);
+  border-radius: 4px;
+  background: var(--void-mid);
+}
+
+.empty-log {
+  padding: 24px;
+  color: var(--parchment-dim);
+  font-style: italic;
+}
+
+.export-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.log-groups { display: grid; gap: 12px; }
+.log-group { overflow: hidden; }
+.log-group-head {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 18px;
+  background: transparent;
+  border: 0;
+  color: var(--parchment);
+  text-align: left;
+}
+.log-group-head strong { display: block; font-size: 1.35rem; font-weight: 400; }
+.log-group-head small { display: block; color: var(--parchment-faint); line-height: 1.6; margin-top: 4px; }
+.dot-row { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; max-width: 150px; }
+.dot-row i { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); opacity: .75; }
+.sighting-list { margin: 0; padding: 0 22px 18px 42px; color: var(--parchment-dim); }
+.sighting-list li { margin: 12px 0; }
+.sighting-list time { font-family: var(--mono); font-size: 11px; color: var(--amber); }
+.sighting-list p { margin: 4px 0 0; font-style: italic; }
+
+.pattern-index-list { display: grid; gap: 12px; }
+.pattern-index-card,
+.ask-card,
+.faq-list details {
+  display: block;
+  border: 1px solid var(--parchment-faint);
+  border-radius: 4px;
+  background: var(--void-mid);
+  padding: 18px;
+  text-decoration: none;
+}
+.pattern-index-card strong { display: block; color: var(--amber); font-size: 1.25rem; font-weight: 400; margin-bottom: 8px; }
+.pattern-index-card span,
+.lede-answer,
+.ask-card p,
+.faq-list p { color: var(--parchment-dim); line-height: 1.8; }
+.lede-answer { font-size: 1.2rem; font-style: italic; margin: 0 0 2rem; }
+.ask-card,
+.related-patterns,
+.faq-list { margin-top: 2rem; }
+.ask-card h2,
+.related-patterns h2,
+.faq-list h2 { font-weight: 400; color: var(--parchment); }
+.submit-link { color: var(--amber); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.faq-list details { margin-bottom: 10px; }
+.faq-list summary { color: var(--parchment); cursor: pointer; }
+
 .content-page {
   width: min(720px, calc(100% - 4rem));
   margin: 0 auto;
@@ -523,6 +644,10 @@ button {
     font-size: 60px;
     left: 16px;
   }
+
+  .share-actions { grid-template-columns: 1fr; }
+  .log-group-head { grid-template-columns: 1fr; }
+  .dot-row { justify-content: flex-start; max-width: none; }
 
   .content-page {
     width: min(100%, calc(100% - 3rem));

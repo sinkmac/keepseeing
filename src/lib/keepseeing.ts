@@ -16,21 +16,42 @@ Rules:
 - Never be dismissive ("this is just coincidence") or credulous ("this is definitely a message")
 - Write as if the recurring thing has chosen to show up, without confirming or denying that it has
 - Match the energy of what's described — a robin gets warmth, 11:11 gets something more cosmic, a black dog gets gravity
+- If recurrence history is provided, weave frequency, gaps, and clustering into PATTERN without inventing sightings not listed
 - No preamble, no labels, no explanation
-- Return ONLY valid JSON with exactly these two keys:
+- Return ONLY valid JSON with exactly these keys:
 
 {
-  "pattern": "2-4 sentence factual-poetic survey",
-  "portrait": "3-5 sentence literary portrait"
-}`;
+  "pattern": "2-4 sentence factual-poetic survey, or the guardrail response",
+  "portrait": "3-5 sentence literary portrait, or an empty string when guarded",
+  "guarded": false
+}
+
+Wellbeing guardrail:
+If the user's input suggests distress, fear, persecution, surveillance, or that the recurrence is causing them significant anxiety rather than curiosity, do not produce a portrait. Respond gently in the site's voice: acknowledge that noticing can become heavy, say plainly that this tool reads culture and pattern and cannot tell them what is happening in their life, and suggest that when noticing stops feeling like curiosity and starts feeling like weight, a conversation with someone they trust — or their GP — is worth more than any reading. Do not diagnose. Do not name conditions. Keep it short and warm. In that case return valid JSON with "pattern" set to the gentle response, "portrait" set to an empty string, and "guarded" set to true.`;
 
 export type KeepSeeingReading = {
   pattern: string;
   portrait: string;
+  guarded?: boolean;
 };
 
-export function buildKeepSeeingUserMessage(subject: string): string {
-  return `What keeps finding me: ${subject.trim()}\n\nWrite the pattern and portrait.`;
+export function buildKeepSeeingUserMessage(subject: string, recurrenceContext = ''): string {
+  const context = recurrenceContext.trim();
+  return `${context ? `${context}\n\n` : ''}What keeps finding me: ${subject.trim()}\n\nWrite the pattern and portrait.`;
+}
+
+const distressPattern = /\b(follows? me|following me|warning|can't sleep|cannot sleep|surveillance|watched|watching me|persecut|afraid|terrified|scared|threat|threatening|panic|heavy|harming me|message to me)\b/i;
+
+export function suggestsDistress(input: string): boolean {
+  return distressPattern.test(input);
+}
+
+export function guardedReading(): KeepSeeingReading {
+  return {
+    pattern: 'Noticing can become heavy when it stops feeling like curiosity. KeepSeeing can read culture and pattern, but it cannot tell you what is happening in your life. If the recurrence feels like weight, fear, or lost sleep, a conversation with someone you trust — or your GP — is worth more than any reading.',
+    portrait: '',
+    guarded: true
+  };
 }
 
 export function stripMarkdownFences(text: string): string {
@@ -43,7 +64,9 @@ export function isKeepSeeingReading(value: unknown): value is KeepSeeingReading 
   }
 
   const candidate = value as Partial<KeepSeeingReading>;
-  return typeof candidate.pattern === 'string' && typeof candidate.portrait === 'string';
+  return typeof candidate.pattern === 'string'
+    && typeof candidate.portrait === 'string'
+    && (candidate.guarded === undefined || typeof candidate.guarded === 'boolean');
 }
 
 export function parseKeepSeeingJson(text: string): KeepSeeingReading {
@@ -63,6 +86,7 @@ export function parseKeepSeeingJson(text: string): KeepSeeingReading {
 
   return {
     pattern: parsed.pattern.trim(),
-    portrait: parsed.portrait.trim()
+    portrait: parsed.portrait.trim(),
+    guarded: parsed.guarded === true
   };
 }

@@ -2,7 +2,9 @@ import {
   KEEPSEEING_MAX_TOKENS,
   KEEPSEEING_MODEL,
   isKeepSeeingReading,
-  parseKeepSeeingJson
+  guardedReading,
+  parseKeepSeeingJson,
+  suggestsDistress
 } from '../../src/lib/keepseeing.ts';
 
 function json(statusCode, body) {
@@ -69,10 +71,16 @@ export async function handler(event) {
     return json(400, { error: 'Invalid payload' });
   }
 
+  if (suggestsDistress(payload.user)) {
+    return json(200, guardedReading());
+  }
+
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return json(500, { error: 'Missing ANTHROPIC_API_KEY' });
   }
+
+  delete process.env.ANTHROPIC_BASE_URL;
 
   try {
     const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
