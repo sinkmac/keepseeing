@@ -40,6 +40,11 @@
   function exportText() {
     download('keepseeing-log.txt', exportLogAsText(log), 'text/plain');
   }
+
+  function exportLog() {
+    exportJson();
+    window.setTimeout(exportText, 100);
+  }
 </script>
 
 <svelte:head>
@@ -62,8 +67,7 @@
       <p><a class="content-link" href="/">Return to the tracker</a></p>
     {:else}
       <div class="export-actions">
-        <button class="secondary-btn" type="button" onclick={exportJson}>download JSON</button>
-        <button class="secondary-btn" type="button" onclick={exportText}>download text</button>
+        <button class="secondary-btn" type="button" onclick={exportLog}>download log as JSON and plain text</button>
       </div>
 
       <div class="log-groups">
