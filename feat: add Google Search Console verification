@@ -2,10 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" href="%sveltekit.assets%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="0C7xb3lcqfr_XLRoKI9BGWHEfiEp454eugnS3cRWHTE" />
     %sveltekit.head%
-  </head>
-  <body data-sveltekit-preload-data="hover">
+</head>
     <div style="display: contents">%sveltekit.body%</div>
   </body>
 </html>
