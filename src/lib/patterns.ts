@@ -31,8 +31,24 @@ export const patternPages: PatternPage[] = [
       { question: 'Can I track every time I see 11:11?', answer: 'Yes. Log each sighting on this device and KeepSeeing can fold the recurrence into future readings.' }
     ]
   },
+  {
+    slug: 'magpie',
+    thing: 'magpie',
+    title: 'What does seeing a magpie mean?',
+    answer: 'Seeing a magpie sits inside one of Britain’s most persistent folk counting-rhymes — "one for sorrow, two for joy" — which turns a single sighting into an act of arithmetic. The magpie carries genuine corvid intelligence alongside a folklore weight that is almost entirely about how many, not what kind.',
+    body: [
+      'The counting rhyme is the dominant British folk tradition around magpies, recorded in variant forms since at least the early nineteenth century: one for sorrow, two for joy, three for a girl, four for a boy, and onward through silver, gold and secrets never to be told. A lone magpie was widely treated as unlucky enough that people developed counter-rituals — saluting it, saying "good morning, Mr Magpie" to a single bird, or scanning the sky for a second one to cancel the omen. The magpie’s reputation as a thief of shiny objects is older folklore still, though modern studies of magpie behaviour have found little evidence the bird is drawn to shine any more than to anything else novel in its territory.',
+      'Psychologically, a magpie sighting is unusual among bird encounters because the folklore hands you an immediate task: count. That single instruction turns a passing glance into a small ritual of vigilance, and it means the encounter rarely ends at the first bird — the eye keeps scanning for a second, a third, enough to know which version of the rhyme applies. The superstition survives not because anyone believes a bird is delivering a verdict, but because counting is a satisfying, low-cost way of turning an ordinary moment into a story with a shape.',
+      'A grounded reading of a magpie sighting stays with the counting rather than the bird. The magpie was not arranging itself into sorrow or joy; it was doing what magpies do, which is forage, pair, and move through territory it already knew. What the rhyme actually tracks is how many you happened to see, in what order, in what mood you arrived carrying. The pattern is yours before it is the bird’s.'
+    ],
+    related: ['crow', 'jay', 'robin'],
+    faqs: [
+      { question: 'Is seeing a single magpie really bad luck?', answer: 'That reading comes from a long-running British folk rhyme, not from anything ominous about the bird itself. KeepSeeing treats it as genuine folklore worth knowing, not a prediction.' },
+      { question: 'Do magpies actually steal shiny objects?', answer: 'The reputation is old and widespread, but controlled studies have found magpies are not reliably drawn to shiny items over other novel objects. The myth may say more about human fascination with the bird than about magpie behaviour.' },
+      { question: 'Can I log repeated magpie sightings, including how many at once?', answer: 'Yes. Note the count each time you log one — the tracker can fold the shape of your own sightings, sorrow-to-joy counts included, into future readings.' }
+    ]
+  },
   ...[
-    ['magpie', 'magpie'],
     ['robin', 'robin'],
     ['white-feather', 'white feather'],
     ['black-cat', 'black cat'],
