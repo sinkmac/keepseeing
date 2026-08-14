@@ -3,3 +3,18 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# Durable cache contract (preventive hardening, Aug 2026).
+# Mirrors the cache policy the adapter already emits in build/_headers, pinned here
+# so the stale-asset/hydration-failure class stays prevented even if tooling defaults shift:
+#   - Every HTML page must be revalidated (no lingering stale pages referencing old JS hashes)
+#   - Hashed immutable JS/CSS assets cache long (they never change on disk)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/_app/immutable/*"
+  [headers.values]
+    Cache-Control = "public, immutable, max-age=31536000"
