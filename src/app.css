@@ -317,6 +317,16 @@ button {
   display: block;
 }
 
+/* Risen state — the recurrence payoff. Set when the reading reveals on a
+   repeat mark; distinct from the plain first-load entrance. */
+.result-wrap.risen .pattern-card {
+  border-color: rgba(200, 146, 42, 0.55);
+  box-shadow: 0 14px 40px -18px rgba(200, 146, 42, 0.35);
+}
+.result-wrap.risen .result-subject {
+  color: var(--parchment);
+}
+
 .result-subject {
   font-size: 10px;
   letter-spacing: 0.2em;

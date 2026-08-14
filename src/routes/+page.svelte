@@ -36,11 +36,13 @@
   let logMessage = $state('');
   let isLoading = $state(false);
   let isResultVisible = $state(false);
+  let isRisen = $state(false);
   let isPatternVisible = $state(false);
   let isPortraitVisible = $state(false);
   let isCopied = $state(false);
   let isCardBusy = $state(false);
   let loggedSightings = $state<Sighting[]>([]);
+  let revealsReading = $derived(subject.trim() !== '' && loggedSightings.length >= 1);
   let resultWrap: HTMLElement | null = null;
   let copyResetHandle: number | null = null;
 
@@ -54,8 +56,7 @@
   });
 
   function fillInput(text: string) {
-    subject = text;
-    refreshSightings(text);
+    onSubjectInput(text);
   }
 
   function showError(message: string) {
@@ -64,6 +65,13 @@
 
   function refreshSightings(value = subject) {
     loggedSightings = value.trim() ? findSightingsForThing(value) : [];
+  }
+
+  function onSubjectInput(value: string) {
+    // A new subject should never carry risen/reveal state from a previous one
+    isRisen = false;
+    isResultVisible = false;
+    refreshSightings(value);
   }
 
   function recurrenceLine() {
@@ -79,6 +87,7 @@
     isPatternVisible = false;
     isPortraitVisible = false;
     isResultVisible = true;
+    isRisen = true;
     await tick();
     resultWrap?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     window.setTimeout(() => {
@@ -113,12 +122,22 @@
     }
 
     const readingId = crypto.randomUUID();
+    const existingCount = findSightingsForThing(trimmed).length;
     addSighting(trimmed, note, readingId);
-    const recurrenceContext = buildRecurrenceContext(trimmed);
     refreshSightings(trimmed);
 
     errorMessage = '';
     logMessage = `Logged on this device: ${trimmed}.`;
+
+    // Reveal-on-second-mark: the first time a thing is logged, record it quietly and
+    // hold the reading. The reading only appears once the thing is recurring.
+    if (existingCount < 1) {
+      logMessage = `Noted — ${trimmed} kept finding you. Log it again when it returns, and KeepSeeing will read what the pattern has become.`;
+      note = '';
+      return;
+    }
+
+    const recurrenceContext = buildRecurrenceContext(trimmed);
     isLoading = true;
 
     try {
@@ -276,7 +295,7 @@
         <input
           class="input-field"
           bind:value={subject}
-          oninput={(event) => refreshSightings((event.currentTarget as HTMLInputElement).value)}
+          oninput={(event) => onSubjectInput((event.currentTarget as HTMLInputElement).value)}
           type="text"
           maxlength="120"
           autocomplete="off"
@@ -298,8 +317,10 @@
         <button class="submit-btn" type="submit" disabled={isLoading}>
           {#if isLoading}
             <span><span class="spinner"></span>reading the pattern...</span>
-          {:else}
+          {:else if revealsReading}
             <span>Log and ask what it means →</span>
+          {:else}
+            <span>Log it — reading comes when it returns</span>
           {/if}
         </button>
         <button class="secondary-btn" type="button" onclick={logOnly}>just noting it</button>
@@ -325,7 +346,7 @@
 
     <hr class="divider" />
 
-    <section class:visible={isResultVisible} bind:this={resultWrap} class="result-wrap" aria-live="polite">
+    <section class:visible={isResultVisible} class:risen={isRisen} bind:this={resultWrap} class="result-wrap" aria-live="polite">
       <div class="result-subject">{currentSubject}</div>
 
       <div class:visible={isPatternVisible} class="pattern-card">
