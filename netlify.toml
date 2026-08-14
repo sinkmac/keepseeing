@@ -12,9 +12,9 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    cache-control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/_app/immutable/*"
   [headers.values]
-    Cache-Control = "public, immutable, max-age=31536000"
+    cache-control = "public, immutable, max-age=31536000"
